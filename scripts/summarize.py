@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 from llm_bringup.common import STEPS  # noqa: E402
 
 BEGIN, END = "<!-- RESULTS-BEGIN -->", "<!-- RESULTS-END -->"
+TBEGIN, TEND = "<!-- TRACE-BEGIN -->", "<!-- TRACE-END -->"
 
 
 def load_step(step: str):
@@ -108,19 +109,42 @@ def main() -> int:
     block = (f"{BEGIN}\n### Performance (median of per-run medians; 64 new tokens; RTX 5070 Laptop)\n\n" + "\n".join(rows)
              + "\n\n### Numerics vs the FP32 CPU reference (transformers)\n\n" + "\n".join(nrows) + kblock + f"\n{END}")
 
+    # Per-step trace breakdown (perflens), if scripts/trace_breakdown.py has run.
+    tb_path = ROOT / "results" / "trace_breakdown.json"
+    tblock = ""
+    if tb_path.exists():
+        tb = json.loads(tb_path.read_text(encoding="utf-8"))
+        trows = ["| Step | GPU span ms | GPU busy ms | idle (launch gaps) | kernels per new token | GEMV/GEMM share (heuristic) |",
+                 "|---|---|---|---|---|---|"]
+        for r in tb["steps"]:
+            i = r["idle"][0]
+            gemm = next((b["share_pct"] for b in r["buckets_heuristic"] if b["bucket"] == "gemm"), 0.0)
+            trows.append(f"| {r['step']} | {r['gpu_span_us'] / 1000:.1f} | {i['busy_us'] / 1000:.1f} | {i['idle_pct']:.1f}% | "
+                         f"{r['kernels_per_new_token']:.1f} | {gemm:.1f}% |")
+        tblock = (f"{TBEGIN}\nTrace: {tb['workload']}; analysis by perflens `{tb['perflens_commit'][:7]}` "
+                  f"(results/trace_breakdown.json).\n\n" + "\n".join(trows) + f"\n{TEND}")
+
     out = ROOT / "results" / "summary.json"
     new_json = json.dumps(summary, indent=2) + "\n"
-    readme = ROOT / "README.md"
-    text = readme.read_text(encoding="utf-8") if readme.exists() else ""
-    new_text = re.sub(re.escape(BEGIN) + r"[\s\S]*?" + re.escape(END), lambda _: block, text) if BEGIN in text else text
+    stale = not out.exists() or out.read_text() != new_json
+    for path in (ROOT / "README.md", ROOT / "docs" / "WRITEUP.md"):
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        new_text = text
+        for b, e, content in ((BEGIN, END, block), (TBEGIN, TEND, tblock)):
+            if b in new_text and content:
+                new_text = re.sub(re.escape(b) + r"[\s\S]*?" + re.escape(e), lambda _, c=content: c, new_text)
+        if new_text != text:
+            stale = True
+            if not check:
+                path.write_text(new_text, encoding="utf-8")
     if check:
-        stale = (not out.exists() or out.read_text() != new_json) or new_text != text
         print("summary stale: run python scripts/summarize.py" if stale else "summary up to date")
         return 1 if stale else 0
     out.write_text(new_json)
-    if readme.exists() and BEGIN in text:
-        readme.write_text(new_text, encoding="utf-8")
     print(block)
+    print(tblock)
     return 0
 
 

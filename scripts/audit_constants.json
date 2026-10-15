@@ -1,0 +1,8 @@
+{
+  "constants": [
+    { "value": 5, "context": "drift|5%|flag", "reason": "the repeat-run drift threshold (protocol setting), not a measurement" },
+    { "value": 100, "context": "100 timed|100%", "reason": "protocol iteration count or an identity percentage" },
+    { "value": 95, "context": "p95|95%", "reason": "percentile label" },
+    { "value": 75, "context": "75 W|power cap|power limit", "reason": "the laptop GPU's power cap as reported by nvidia-smi power.limit (device setting)" }
+  ]
+}
