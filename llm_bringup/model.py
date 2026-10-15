@@ -199,10 +199,20 @@ class Llama:
             return StaticCache(self.cfg, batch, max_len, self.device, self.opts.dtype)
         return DynamicCache(self.cfg.num_hidden_layers)
 
-    def _attention(self, q, k, v, pos, t, attend_len, static):
-        """q [b,h,t,d]; k/v [b,kvh,S,d] (S = cached length or static attend_len)."""
+    def _attention(self, q, k, v, pos, t, attend_len, static, static_mask=None):
+        """q [b,h,t,d]; k/v [b,kvh,S,d] (S = cached length or static attend_len).
+
+        static_mask: with the static cache, the [t, attend_len] causal mask built
+        once per forward (not per layer); None means "prefill from position 0",
+        where attention runs causally over the t freshly written keys only.
+        """
         cfg = self.cfg
         groups = cfg.num_attention_heads // cfg.num_key_value_heads
+        if static and self.opts.attn == "sdpa":
+            if static_mask is None:
+                return F.scaled_dot_product_attention(q, k[:, :, :t], v[:, :, :t], is_causal=t > 1, enable_gqa=True)
+            return F.scaled_dot_product_attention(q, k[:, :, :attend_len], v[:, :, :attend_len],
+                                                  attn_mask=static_mask, enable_gqa=True)
         if static:
             k, v = k[:, :, :attend_len], v[:, :, :attend_len]
         S = k.shape[2]
@@ -245,6 +255,10 @@ class Llama:
         else:
             idx = pos + torch.arange(t, device=tokens.device)
             cos, sin = self.cos.index_select(0, idx), self.sin.index_select(0, idx)
+        static_mask = None
+        if static and self.opts.attn == "sdpa" and not (isinstance(pos, int) and pos == 0):
+            q_pos = pos + torch.arange(t, device=tokens.device).view(t, 1)
+            static_mask = torch.arange(attend_len, device=tokens.device).view(1, attend_len) <= q_pos
         x = F.embedding(tokens, self.embed)
         for i, L in enumerate(self.layers):
             hN = self.rmsnorm(x, L["ln1"])
@@ -255,7 +269,7 @@ class Llama:
             v = v.view(b, t, kvh, d).transpose(1, 2)
             q, k = apply_rope(q, cos, sin), apply_rope(k, cos, sin)
             k_all, v_all = cache.update(i, k, v, pos) if cache is not None else (k, v)
-            a = self._attention(q, k_all, v_all, pos, t, attend_len, static)
+            a = self._attention(q, k_all, v_all, pos, t, attend_len, static, static_mask)
             x = x + a.transpose(1, 2).reshape(b, t, h * d) @ L["wo"].T
             hN = self.rmsnorm(x, L["ln2"])
             gate, up = (hN @ L["wgu"].T).chunk(2, dim=-1)
