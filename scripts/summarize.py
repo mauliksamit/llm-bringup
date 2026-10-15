@@ -64,7 +64,22 @@ def main() -> int:
                 p = prev["cells"][j]
                 c["ttft_speedup_vs_prev"] = p["ttft_ms"] / c["ttft_ms"]
                 c["decode_speedup_vs_prev"] = p["decode_ms"] / c["decode_ms"]
-    summary = {"generated_by": "scripts/summarize.py", "rule": "median of per-run medians", "steps": steps}
+    kernels = []
+    kruns = sorted((ROOT / "results" / "kernels").glob("rmsnorm_run*.json"))
+    if kruns:
+        kd = [json.loads(p.read_text()) for p in kruns]
+        for i, sh in enumerate(kd[0]["shapes"]):
+            row = {"rows": sh["rows"], "hidden": sh["hidden"], "runs": len(kd)}
+            for impl in ("torch_composed", "fused"):
+                meds = [r["shapes"][i]["graph"][impl]["median_us"] for r in kd]
+                row[f"{impl}_graph_us"] = statistics.median(meds)
+                row[f"{impl}_graph_us_range"] = [min(meds), max(meds)]
+            sp = [r["shapes"][i]["graph"]["speedup_median"] for r in kd]
+            row["graph_speedup"] = row["torch_composed_graph_us"] / row["fused_graph_us"]
+            row["graph_speedup_range_over_runs"] = [min(sp), max(sp)]
+            kernels.append(row)
+    summary = {"generated_by": "scripts/summarize.py", "rule": "median of per-run medians", "steps": steps,
+               "rmsnorm_kernel_graph_mode": kernels}
 
     rows = ["| Step | batch | prompt | TTFT ms | decode ms/token | decode tok/s | peak GiB | vs prev (TTFT / decode) | vs baseline (TTFT / decode) |",
             "|---|---|---|---|---|---|---|---|---|"]
@@ -83,8 +98,15 @@ def main() -> int:
             nrows.append(f"| {s['step']} | {n['max_abs_logit_diff']:.4g} | {n['mean_abs_logit_diff']:.3g} | "
                          f"{100 * n['teacher_forced_token_match_rate']:.1f}% | {100 * n['free_run_match_rate']:.1f}% | "
                          f"{n['ppl']:.4f} ({n['ppl_reference']:.4f}) |")
+    krows = ["| rows x 2048 (bf16) | composed PyTorch, us | fused kernel, us | speedup (range over runs) |", "|---|---|---|---|"]
+    for k in kernels:
+        lo, hi = k["graph_speedup_range_over_runs"]
+        krows.append(f"| {k['rows']} | {k['torch_composed_graph_us']:.2f} | {k['fused_graph_us']:.2f} | "
+                     f"{k['graph_speedup']:.2f}x ({lo:.2f}-{hi:.2f}x) |")
+    kblock = ("\n\n### Fused RMSNorm kernel vs composed PyTorch (graph-replayed GPU time, median of run medians)\n\n"
+              + "\n".join(krows)) if kernels else ""
     block = (f"{BEGIN}\n### Performance (median of per-run medians; 64 new tokens; RTX 5070 Laptop)\n\n" + "\n".join(rows)
-             + "\n\n### Numerics vs the FP32 CPU reference (transformers)\n\n" + "\n".join(nrows) + f"\n{END}")
+             + "\n\n### Numerics vs the FP32 CPU reference (transformers)\n\n" + "\n".join(nrows) + kblock + f"\n{END}")
 
     out = ROOT / "results" / "summary.json"
     new_json = json.dumps(summary, indent=2) + "\n"
