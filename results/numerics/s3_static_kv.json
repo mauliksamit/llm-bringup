@@ -50,8 +50,8 @@
     "ppl_tokens": 1024
   },
   "environment": {
-    "git_commit": "a80ba6cd699e55db3ad02bbe193bdcee41064221",
-    "tracked_files_dirty": false,
+    "git_commit": "2edff08ba26cf3ca70e424e78734cd90f985202a",
+    "tracked_files_dirty": true,
     "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU, 617.14, 12.0, [N/A]",
     "torch": "2.14.1+cu130",
     "torch_cuda": "13.0",

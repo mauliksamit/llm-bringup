@@ -225,65 +225,64 @@
       "step": "s3_static_kv",
       "runs": [
         "s3_static_kv_run1.json",
-        "s3_static_kv_run2.json",
-        "s3_static_kv_run3.json"
+        "s3_static_kv_run2.json"
       ],
       "cells": [
         {
           "batch": 1,
           "prompt_len": 128,
-          "ttft_ms": 15.84395170211792,
-          "decode_ms": 939.9921264648438,
-          "ms_per_token": 14.920509943886408,
-          "decode_tok_per_s": 67.0218379774442,
+          "ttft_ms": 14.77842402458191,
+          "decode_ms": 914.0676879882812,
+          "ms_per_token": 14.509010920448908,
+          "decode_tok_per_s": 68.92268573529064,
           "peak_mem_gib": 2.095815658569336,
-          "runs": 3,
-          "ttft_speedup_vs_baseline": 2.4765245315017,
-          "decode_speedup_vs_baseline": 1.2756926882711719,
-          "ttft_speedup_vs_prev": 0.8399520573145325,
-          "decode_speedup_vs_prev": 0.7972234420337448
+          "runs": 2,
+          "ttft_speedup_vs_baseline": 2.655082504126025,
+          "decode_speedup_vs_baseline": 1.311873396818995,
+          "ttft_speedup_vs_prev": 0.9005127885118002,
+          "decode_speedup_vs_prev": 0.8198339886559137
         },
         {
           "batch": 1,
           "prompt_len": 1024,
-          "ttft_ms": 80.36916732788086,
-          "decode_ms": 904.3457641601562,
-          "ms_per_token": 14.354694669208829,
-          "decode_tok_per_s": 69.6636203725757,
+          "ttft_ms": 72.75471878051758,
+          "decode_ms": 844.30078125,
+          "ms_per_token": 13.401599702380953,
+          "decode_tok_per_s": 74.61795772204256,
           "peak_mem_gib": 2.170102119445801,
-          "runs": 3,
-          "ttft_speedup_vs_baseline": 3.9760158095375067,
-          "decode_speedup_vs_baseline": 1.4116409135818184,
-          "ttft_speedup_vs_prev": 0.9104430614817194,
-          "decode_speedup_vs_prev": 0.8641522890129928
+          "runs": 2,
+          "ttft_speedup_vs_baseline": 4.392142327688979,
+          "decode_speedup_vs_baseline": 1.5120339919890258,
+          "ttft_speedup_vs_prev": 1.0057292774572095,
+          "decode_speedup_vs_prev": 0.9256090714510435
         },
         {
           "batch": 4,
           "prompt_len": 128,
-          "ttft_ms": 37.1898078918457,
-          "decode_ms": 905.8279418945312,
-          "ms_per_token": 14.378221299913195,
-          "decode_tok_per_s": 278.19852793781587,
+          "ttft_ms": 35.3574161529541,
+          "decode_ms": 870.0813903808594,
+          "ms_per_token": 13.810815720331101,
+          "decode_tok_per_s": 289.6280770810331,
           "peak_mem_gib": 2.132744312286377,
-          "runs": 3,
-          "ttft_speedup_vs_baseline": 3.3553612467221283,
-          "decode_speedup_vs_baseline": 1.482762985320817,
-          "ttft_speedup_vs_prev": 0.9384898172495162,
-          "decode_speedup_vs_prev": 0.8426087445762894
+          "runs": 2,
+          "ttft_speedup_vs_baseline": 3.529252240421818,
+          "decode_speedup_vs_baseline": 1.5436810373827459,
+          "ttft_speedup_vs_prev": 0.987126883394923,
+          "decode_speedup_vs_prev": 0.8772266058785317
         },
         {
           "batch": 4,
           "prompt_len": 1024,
-          "ttft_ms": 332.7239227294922,
-          "decode_ms": 1014.7963562011719,
-          "ms_per_token": 16.107878669859872,
-          "decode_tok_per_s": 248.32568471505613,
+          "ttft_ms": 308.7558288574219,
+          "decode_ms": 975.0531921386719,
+          "ms_per_token": 15.477034795851935,
+          "decode_tok_per_s": 258.44743859282767,
           "peak_mem_gib": 2.4298934936523438,
-          "runs": 3,
-          "ttft_speedup_vs_baseline": 4.419328702827901,
-          "decode_speedup_vs_baseline": 1.844037474445421,
-          "ttft_speedup_vs_prev": 0.9574868513044593,
-          "decode_speedup_vs_prev": 0.9451993689442592
+          "runs": 2,
+          "ttft_speedup_vs_baseline": 4.7623922996930705,
+          "decode_speedup_vs_baseline": 1.919200434246141,
+          "ttft_speedup_vs_prev": 1.0318146294010335,
+          "decode_speedup_vs_prev": 0.9837256912973279
         }
       ],
       "numerics": {
@@ -295,7 +294,7 @@
         "ppl_reference": 6.747465359746397,
         "ppl_tokens": 1024
       },
-      "drift_flagged_cells_run1_vs_run2": 1
+      "drift_flagged_cells_run1_vs_run2": 0
     }
   ]
 }
