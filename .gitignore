@@ -1,8 +1,8 @@
-.venv/
-models/
-__pycache__/
-*.pyc
-results/_cache/
-build/
 *.egg-info/
+*.pyc
 .pytest_cache/
+.venv/
+__pycache__/
+build/
+models/
+results/_cache/
