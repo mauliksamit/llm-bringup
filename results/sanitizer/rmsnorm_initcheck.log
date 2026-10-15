@@ -1,0 +1,22 @@
+========= COMPUTE-SANITIZER
+torch.float32   rows=1 hidden=1: PASS
+torch.float32   rows=3 hidden=7: PASS
+torch.float32   rows=2 hidden=8: PASS
+torch.float32   rows=5 hidden=2047: PASS
+torch.float32   rows=4 hidden=2048: PASS
+torch.float32   rows=2 hidden=5632: PASS
+torch.bfloat16  rows=1 hidden=1: PASS
+torch.bfloat16  rows=3 hidden=7: PASS
+torch.bfloat16  rows=2 hidden=8: PASS
+torch.bfloat16  rows=5 hidden=2047: PASS
+torch.bfloat16  rows=4 hidden=2048: PASS
+torch.bfloat16  rows=2 hidden=5632: PASS
+torch.float16   rows=1 hidden=1: PASS
+torch.float16   rows=3 hidden=7: PASS
+torch.float16   rows=2 hidden=8: PASS
+torch.float16   rows=5 hidden=2047: PASS
+torch.float16   rows=4 hidden=2048: PASS
+torch.float16   rows=2 hidden=5632: PASS
+unaligned view: PASS
+ALL PASS
+========= ERROR SUMMARY: 0 errors

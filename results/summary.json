@@ -371,5 +371,87 @@
       },
       "drift_flagged_cells_run1_vs_run2": 0
     }
+  ],
+  "rmsnorm_kernel_graph_mode": [
+    {
+      "rows": 1,
+      "hidden": 2048,
+      "runs": 3,
+      "torch_composed_graph_us": 8.114400133490562,
+      "torch_composed_graph_us_range": [
+        8.044800162315369,
+        8.235200121998787
+      ],
+      "fused_graph_us": 1.5920000150799751,
+      "fused_graph_us_range": [
+        1.5639999881386757,
+        1.6048000194132328
+      ],
+      "graph_speedup": 5.0969849601935655,
+      "graph_speedup_range_over_runs": [
+        5.0969849601935655,
+        5.143734158137383
+      ]
+    },
+    {
+      "rows": 4,
+      "hidden": 2048,
+      "runs": 3,
+      "torch_composed_graph_us": 9.34000015258789,
+      "torch_composed_graph_us_range": [
+        9.285600110888481,
+        9.459999948740005
+      ],
+      "fused_graph_us": 1.63199994713068,
+      "fused_graph_us_range": [
+        1.573600061237812,
+        1.7160000279545784
+      ],
+      "graph_speedup": 5.723039494584005,
+      "graph_speedup_range_over_runs": [
+        5.512820393141863,
+        5.900864101126381
+      ]
+    },
+    {
+      "rows": 128,
+      "hidden": 2048,
+      "runs": 3,
+      "torch_composed_graph_us": 16.10880047082901,
+      "torch_composed_graph_us_range": [
+        16.08159989118576,
+        16.229600459337234
+      ],
+      "fused_graph_us": 2.094399929046631,
+      "fused_graph_us_range": [
+        1.9783999770879745,
+        2.115200087428093
+      ],
+      "graph_speedup": 7.691367941442646,
+      "graph_speedup_range_over_runs": [
+        7.6028740669823085,
+        8.142337574497803
+      ]
+    },
+    {
+      "rows": 4096,
+      "hidden": 2048,
+      "runs": 3,
+      "torch_composed_graph_us": 808.0016136169434,
+      "torch_composed_graph_us_range": [
+        781.1872005462646,
+        808.7784290313721
+      ],
+      "fused_graph_us": 44.781599938869476,
+      "fused_graph_us_range": [
+        43.247999250888824,
+        50.37359893321991
+      ],
+      "graph_speedup": 18.043160912516104,
+      "graph_speedup_range_over_runs": [
+        15.50786954058775,
+        18.700944391427544
+      ]
+    }
   ]
 }

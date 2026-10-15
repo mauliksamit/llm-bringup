@@ -1,0 +1,150 @@
+{
+  "limit_pct": 5,
+  "flagged": 7,
+  "cells": [
+    {
+      "rows": 1,
+      "mode": "eager",
+      "impl": "torch_composed",
+      "run1": 116.16000160574913,
+      "run2": 90.20800143480301,
+      "drift_pct": 22.34159763446635,
+      "flagged": true
+    },
+    {
+      "rows": 1,
+      "mode": "eager",
+      "impl": "fused",
+      "run1": 20.720000378787518,
+      "run2": 13.055999763309956,
+      "drift_pct": 36.98841928267397,
+      "flagged": true
+    },
+    {
+      "rows": 1,
+      "mode": "graph",
+      "impl": "torch_composed",
+      "run1": 8.235200121998787,
+      "run2": 8.114400133490562,
+      "drift_pct": 1.466873745855065,
+      "flagged": false
+    },
+    {
+      "rows": 1,
+      "mode": "graph",
+      "impl": "fused",
+      "run1": 1.6048000194132328,
+      "run2": 1.5920000150799751,
+      "drift_pct": 0.7976074388345143,
+      "flagged": false
+    },
+    {
+      "rows": 4,
+      "mode": "eager",
+      "impl": "torch_composed",
+      "run1": 124.89599734544754,
+      "run2": 84.83199775218964,
+      "drift_pct": 32.077889159606634,
+      "flagged": true
+    },
+    {
+      "rows": 4,
+      "mode": "eager",
+      "impl": "fused",
+      "run1": 20.495999604463577,
+      "run2": 13.088000006973743,
+      "drift_pct": 36.143636516642665,
+      "flagged": true
+    },
+    {
+      "rows": 4,
+      "mode": "graph",
+      "impl": "torch_composed",
+      "run1": 9.459999948740005,
+      "run2": 9.34000015258789,
+      "drift_pct": 1.2684967949508061,
+      "flagged": false
+    },
+    {
+      "rows": 4,
+      "mode": "graph",
+      "impl": "fused",
+      "run1": 1.7160000279545784,
+      "run2": 1.63199994713068,
+      "drift_pct": 4.895109525378269,
+      "flagged": false
+    },
+    {
+      "rows": 128,
+      "mode": "eager",
+      "impl": "torch_composed",
+      "run1": 114.87999930977821,
+      "run2": 85.67999675869942,
+      "drift_pct": 25.41782967141208,
+      "flagged": true
+    },
+    {
+      "rows": 128,
+      "mode": "eager",
+      "impl": "fused",
+      "run1": 14.831999782472849,
+      "run2": 12.671999633312225,
+      "drift_pct": 14.563108015367701,
+      "flagged": true
+    },
+    {
+      "rows": 128,
+      "mode": "graph",
+      "impl": "torch_composed",
+      "run1": 16.229600459337234,
+      "run2": 16.10880047082901,
+      "drift_pct": 0.7443189301602658,
+      "flagged": false
+    },
+    {
+      "rows": 128,
+      "mode": "graph",
+      "impl": "fused",
+      "run1": 2.094399929046631,
+      "run2": 1.9783999770879745,
+      "drift_pct": 5.538576961825022,
+      "flagged": true
+    },
+    {
+      "rows": 4096,
+      "mode": "eager",
+      "impl": "torch_composed",
+      "run1": 821.1040198802948,
+      "run2": 822.816014289856,
+      "drift_pct": 0.2080652758124452,
+      "flagged": false
+    },
+    {
+      "rows": 4096,
+      "mode": "eager",
+      "impl": "fused",
+      "run1": 35.45600175857544,
+      "run2": 34.752000123262405,
+      "drift_pct": 1.9855640805375445,
+      "flagged": false
+    },
+    {
+      "rows": 4096,
+      "mode": "graph",
+      "impl": "torch_composed",
+      "run1": 808.0016136169434,
+      "run2": 808.7784290313721,
+      "drift_pct": 0.09604798873766436,
+      "flagged": false
+    },
+    {
+      "rows": 4096,
+      "mode": "graph",
+      "impl": "fused",
+      "run1": 44.781599938869476,
+      "run2": 43.247999250888824,
+      "drift_pct": 3.4246223673878142,
+      "flagged": false
+    }
+  ]
+}
