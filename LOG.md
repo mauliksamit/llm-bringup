@@ -37,3 +37,12 @@
   third decimal or a range bound; fixed before pushing, and from then on every
   number is printed by a script. The claims audit is strict (no free ratio
   search) so it cannot pass by coincidence.
+
+## 2026-10-15 — Cold-clone check
+- Fresh `git clone` of `ddda317` into an empty folder (no remote exists yet,
+  so cloned from the local repository). With the existing venv's interpreter
+  (torch not re-downloaded): `pytest tests/test_model.py` 10 passed,
+  `scripts/claims_audit.py` passed (342 numbers), `scripts/summarize.py
+  --check` up to date. Weights are not in the clone (gitignored; fetched by
+  `scripts/download_model.py`). The fused-kernel tests need nvcc + MSVC on
+  PATH and were run in the main checkout (69 passed), not in the clone.
