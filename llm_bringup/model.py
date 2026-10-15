@@ -206,13 +206,19 @@ class Llama:
         if static:
             k, v = k[:, :, :attend_len], v[:, :, :attend_len]
         S = k.shape[2]
-        # Causal mask over absolute positions: query i (at pos+i) sees keys j <= pos+i.
-        q_pos = pos + torch.arange(t, device=q.device).view(t, 1)
-        allowed = torch.arange(S, device=q.device).view(1, S) <= q_pos
+
+        def allowed():
+            # Causal mask over absolute positions: query i (at pos+i) sees keys j <= pos+i.
+            q_pos = pos + torch.arange(t, device=q.device).view(t, 1)
+            return torch.arange(S, device=q.device).view(1, S) <= q_pos
+
         if self.opts.attn == "sdpa":
-            if t > 1 and isinstance(pos, int) and pos == 0 and S == t:
-                return F.scaled_dot_product_attention(q, k, v, is_causal=True, enable_gqa=True)
-            return F.scaled_dot_product_attention(q, k, v, attn_mask=allowed, enable_gqa=True)
+            if isinstance(pos, int) and pos == 0 and S == t:  # prefill from empty cache
+                return F.scaled_dot_product_attention(q, k, v, is_causal=t > 1, enable_gqa=True)
+            if t == 1 and not static:  # one new query, cache holds exactly the past: every key visible
+                return F.scaled_dot_product_attention(q, k, v, enable_gqa=True)
+            return F.scaled_dot_product_attention(q, k, v, attn_mask=allowed(), enable_gqa=True)
+        allowed = allowed()
         k = k.repeat_interleave(groups, dim=1)
         v = v.repeat_interleave(groups, dim=1)
         scores = (q @ k.transpose(-2, -1)) / math.sqrt(cfg.head_dim)
