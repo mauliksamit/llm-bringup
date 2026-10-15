@@ -1,0 +1,740 @@
+{
+  "generated_by": "scripts/trace_breakdown.py",
+  "perflens_commit": "3ca1b6354980acafc4edadcc23726093df512bcb",
+  "workload": "batch 1, prompt 128, 16 new tokens (scripts/trace_step.py)",
+  "note": "categories are perflens's name-based heuristic; idle = no GPU activity recorded",
+  "steps": [
+    {
+      "file": "s0_fp32_baseline_b1_p128.json.gz",
+      "counts": {
+        "totalEvents": 130027,
+        "completeEvents": 97870,
+        "gpuEvents": 16029,
+        "cpuOps": 65715,
+        "skipped": 32157
+      },
+      "gpu_kernels": 15611,
+      "gpu_span_us": 400424.43408203125,
+      "idle": [
+        {
+          "device": 0,
+          "window_us": 400424.434,
+          "busy_us": 232335.0550000042,
+          "idle_us": 168089.3789999958,
+          "idle_pct": 41.97780273318581,
+          "gap_count": 16028,
+          "listed_gaps_ge_5us": 4289
+        }
+      ],
+      "buckets_heuristic": [
+        {
+          "bucket": "gemm",
+          "total_us": 213864.98399999997,
+          "count": 2128,
+          "share_pct": 92.05024355881143
+        },
+        {
+          "bucket": "elementwise",
+          "total_us": 13959.1080000002,
+          "count": 11030,
+          "share_pct": 6.008179867648514
+        },
+        {
+          "bucket": "other",
+          "total_us": 2211.4959999999905,
+          "count": 1365,
+          "share_pct": 0.9518563610644012
+        },
+        {
+          "bucket": "reduction",
+          "total_us": 1461.495999999996,
+          "count": 736,
+          "share_pct": 0.6290467015405772
+        },
+        {
+          "bucket": "softmax",
+          "total_us": 483.9760000000011,
+          "count": 352,
+          "share_pct": 0.208309503703605
+        },
+        {
+          "bucket": "memcpy/memset",
+          "total_us": 353.994999999997,
+          "count": 418,
+          "share_pct": 0.15236400723084795
+        }
+      ],
+      "top_kernels": [
+        {
+          "name": "gemv2T_kernel_val<\u2026>",
+          "kind": "kernel",
+          "count": 1006,
+          "total_us": 137586.89500000014,
+          "share_pct": 59.21917163985399
+        },
+        {
+          "name": "internal::gemvx::kernel<\u2026>",
+          "kind": "kernel",
+          "count": 330,
+          "total_us": 43326.43900000001,
+          "share_pct": 18.64825736262645
+        },
+        {
+          "name": "magma_sgemmEx_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 44,
+          "total_us": 17857.768999999997,
+          "share_pct": 7.686213774326854
+        },
+        {
+          "name": "cutlass::Kernel2<cutlass_80_simt_sgemm_256x128_8x4_tn_align1>",
+          "kind": "kernel",
+          "count": 66,
+          "total_us": 13274.297999999999,
+          "share_pct": 5.713428823730412
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 2194,
+          "total_us": 2866.4659999999812,
+          "share_pct": 1.233763884662158
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 726,
+          "total_us": 2040.2640000000065,
+          "share_pct": 0.878155902904963
+        },
+        {
+          "name": "at::native::vectorized_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1364,
+          "total_us": 1530.3549999999914,
+          "share_pct": 0.6586845020007767
+        },
+        {
+          "name": "at::native::reduce_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1312.464999999996,
+          "share_pct": 0.5649018397159167
+        }
+      ],
+      "step": "s0_fp32_baseline",
+      "kernels_per_new_token": 975.6875
+    },
+    {
+      "file": "s1_bf16_b1_p128.json.gz",
+      "counts": {
+        "totalEvents": 145125,
+        "completeEvents": 108636,
+        "gpuEvents": 18151,
+        "cpuOps": 72147,
+        "skipped": 36489
+      },
+      "gpu_kernels": 17755,
+      "gpu_span_us": 441466.0241699219,
+      "idle": [
+        {
+          "device": 0,
+          "window_us": 441466.02410546876,
+          "busy_us": 117740.14800000374,
+          "idle_us": 323725.876105465,
+          "idle_pct": 73.329737381585,
+          "gap_count": 18150,
+          "listed_gaps_ge_5us": 11787
+        }
+      ],
+      "buckets_heuristic": [
+        {
+          "bucket": "gemm",
+          "total_us": 97238.16900000047,
+          "count": 2128,
+          "share_pct": 82.5870959496354
+        },
+        {
+          "bucket": "elementwise",
+          "total_us": 16559.52899999981,
+          "count": 13174,
+          "share_pct": 14.064471024786036
+        },
+        {
+          "bucket": "other",
+          "total_us": 1801.061999999993,
+          "count": 1365,
+          "share_pct": 1.5296923187153078
+        },
+        {
+          "bucket": "reduction",
+          "total_us": 1362.0389999999943,
+          "count": 736,
+          "share_pct": 1.1568178086543819
+        },
+        {
+          "bucket": "softmax",
+          "total_us": 469.83200000000136,
+          "count": 352,
+          "share_pct": 0.3990414552562073
+        },
+        {
+          "bucket": "memcpy/memset",
+          "total_us": 309.51699999999875,
+          "count": 396,
+          "share_pct": 0.26288144295521515
+        }
+      ],
+      "top_kernels": [
+        {
+          "name": "internal::gemvx::kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1468,
+          "total_us": 89085.2560000003,
+          "share_pct": 75.66259896327153
+        },
+        {
+          "name": "cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>",
+          "kind": "kernel",
+          "count": 88,
+          "total_us": 6686.075999999999,
+          "share_pct": 5.678671305899967
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1474,
+          "total_us": 2238.3210000000067,
+          "share_pct": 1.9010686142504754
+        },
+        {
+          "name": "at::native::unrolled_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1072,
+          "total_us": 2137.3539999999957,
+          "share_pct": 1.8153145178652614
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 726,
+          "total_us": 2034.9880000000107,
+          "share_pct": 1.728372211660595
+        },
+        {
+          "name": "at::native::vectorized_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1364,
+          "total_us": 1266.1139999999982,
+          "share_pct": 1.0753460238558794
+        },
+        {
+          "name": "at::native::(anonymous)::CatArrayBatchedCopy<\u2026>",
+          "kind": "kernel",
+          "count": 748,
+          "total_us": 1262.6269999999936,
+          "share_pct": 1.0723844172507944
+        },
+        {
+          "name": "at::native::reduce_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1256.1799999999953,
+          "share_pct": 1.0669087998768478
+        }
+      ],
+      "step": "s1_bf16",
+      "kernels_per_new_token": 1109.6875
+    },
+    {
+      "file": "s2_sdpa_b1_p128.json.gz",
+      "counts": {
+        "totalEvents": 107107,
+        "completeEvents": 78846,
+        "gpuEvents": 13905,
+        "cpuOps": 50587,
+        "skipped": 28261
+      },
+      "gpu_kernels": 13861,
+      "gpu_span_us": 300965.1970214844,
+      "idle": [
+        {
+          "device": 0,
+          "window_us": 300965.19704296876,
+          "busy_us": 113229.01200000502,
+          "idle_us": 187736.18504296374,
+          "idle_pct": 62.37803802150608,
+          "gap_count": 13904,
+          "listed_gaps_ge_5us": 7139
+        }
+      ],
+      "buckets_heuristic": [
+        {
+          "bucket": "gemm",
+          "total_us": 95257.26399999991,
+          "count": 1424,
+          "share_pct": 84.12796536633459
+        },
+        {
+          "bucket": "elementwise",
+          "total_us": 11438.047000000093,
+          "count": 9984,
+          "share_pct": 10.101692841760771
+        },
+        {
+          "bucket": "attention",
+          "total_us": 3371.69,
+          "count": 352,
+          "share_pct": 2.977761565207426
+        },
+        {
+          "bucket": "other",
+          "total_us": 1804.6159999999927,
+          "count": 1365,
+          "share_pct": 1.5937752773114795
+        },
+        {
+          "bucket": "reduction",
+          "total_us": 1341.7139999999931,
+          "count": 736,
+          "share_pct": 1.1849560252279112
+        },
+        {
+          "bucket": "memcpy/memset",
+          "total_us": 15.681000000000006,
+          "count": 44,
+          "share_pct": 0.013848924160885984
+        }
+      ],
+      "top_kernels": [
+        {
+          "name": "internal::gemvx::kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1336,
+          "total_us": 88585.2629999999,
+          "share_pct": 78.23548173325281
+        },
+        {
+          "name": "cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>",
+          "kind": "kernel",
+          "count": 88,
+          "total_us": 6672.000999999999,
+          "share_pct": 5.89248363308178
+        },
+        {
+          "name": "fmha_cutlassF_bf16_aligned_64x64_rf_sm80",
+          "kind": "kernel",
+          "count": 352,
+          "total_us": 3371.69,
+          "share_pct": 2.977761565207426
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1474,
+          "total_us": 2227.8580000000184,
+          "share_pct": 1.967568170602855
+        },
+        {
+          "name": "at::native::unrolled_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1500.7920000000026,
+          "share_pct": 1.3254482870521285
+        },
+        {
+          "name": "at::native::(anonymous)::CatArrayBatchedCopy<\u2026>",
+          "kind": "kernel",
+          "count": 748,
+          "total_us": 1268.2479999999937,
+          "share_pct": 1.1200733607037325
+        },
+        {
+          "name": "at::native::vectorized_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1364,
+          "total_us": 1255.0069999999992,
+          "share_pct": 1.1083793612895234
+        },
+        {
+          "name": "at::native::reduce_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1235.1479999999945,
+          "share_pct": 1.0908405700828976
+        }
+      ],
+      "step": "s2_sdpa",
+      "kernels_per_new_token": 866.3125
+    },
+    {
+      "file": "s3_static_kv_b1_p128.json.gz",
+      "counts": {
+        "totalEvents": 120985,
+        "completeEvents": 90532,
+        "gpuEvents": 15001,
+        "cpuOps": 60081,
+        "skipped": 30453
+      },
+      "gpu_kernels": 14957,
+      "gpu_span_us": 328563.2648925781,
+      "idle": [
+        {
+          "device": 0,
+          "window_us": 328563.2650019531,
+          "busy_us": 114886.28099999877,
+          "idle_us": 213676.98400195435,
+          "idle_pct": 65.0337413711433,
+          "gap_count": 15000,
+          "listed_gaps_ge_5us": 8361
+        }
+      ],
+      "buckets_heuristic": [
+        {
+          "bucket": "gemm",
+          "total_us": 95299.50399999994,
+          "count": 1424,
+          "share_pct": 82.95116107031183
+        },
+        {
+          "bucket": "elementwise",
+          "total_us": 13216.785000000214,
+          "count": 11740,
+          "share_pct": 11.504232607199086
+        },
+        {
+          "bucket": "attention",
+          "total_us": 3833.459999999995,
+          "count": 352,
+          "share_pct": 3.336743052897708
+        },
+        {
+          "bucket": "reduction",
+          "total_us": 1341.7039999999931,
+          "count": 736,
+          "share_pct": 1.1678539755325605
+        },
+        {
+          "bucket": "other",
+          "total_us": 1178.6989999999962,
+          "count": 705,
+          "share_pct": 1.0259701939520611
+        },
+        {
+          "bucket": "memcpy/memset",
+          "total_us": 16.12900000000001,
+          "count": 44,
+          "share_pct": 0.014039100108045273
+        }
+      ],
+      "top_kernels": [
+        {
+          "name": "internal::gemvx::kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1336,
+          "total_us": 88663.91600000001,
+          "share_pct": 77.17537309785583
+        },
+        {
+          "name": "cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>",
+          "kind": "kernel",
+          "count": 88,
+          "total_us": 6635.587999999998,
+          "share_pct": 5.7757879724560635
+        },
+        {
+          "name": "fmha_cutlassF_bf16_aligned_64x64_rf_sm80",
+          "kind": "kernel",
+          "count": 352,
+          "total_us": 3833.459999999995,
+          "share_pct": 3.336743052897708
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1474,
+          "total_us": 2241.0560000000105,
+          "share_pct": 1.9506732923141943
+        },
+        {
+          "name": "at::native::unrolled_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1515.3129999999974,
+          "share_pct": 1.318967753860894
+        },
+        {
+          "name": "at::native::vectorized_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1364,
+          "total_us": 1258.3049999999948,
+          "share_pct": 1.095261321932781
+        },
+        {
+          "name": "at::native::reduce_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1235.5549999999944,
+          "share_pct": 1.075459131626002
+        },
+        {
+          "name": "at::native::(anonymous)::CatArrayBatchedCopy<\u2026>",
+          "kind": "kernel",
+          "count": 704,
+          "total_us": 1177.6109999999962,
+          "share_pct": 1.025023170521126
+        }
+      ],
+      "step": "s3_static_kv",
+      "kernels_per_new_token": 934.8125
+    },
+    {
+      "file": "s4_cuda_graph_b1_p128.json.gz",
+      "counts": {
+        "totalEvents": 37219,
+        "completeEvents": 20371,
+        "gpuEvents": 15796,
+        "cpuOps": 3527,
+        "skipped": 16848
+      },
+      "gpu_kernels": 15750,
+      "gpu_span_us": 140916.23803710938,
+      "idle": [
+        {
+          "device": 0,
+          "window_us": 140916.23807617187,
+          "busy_us": 123250.54599999907,
+          "idle_us": 17665.692076172796,
+          "idle_pct": 12.536306899296912,
+          "gap_count": 15795,
+          "listed_gaps_ge_5us": 452
+        }
+      ],
+      "buckets_heuristic": [
+        {
+          "bucket": "gemm",
+          "total_us": 103215.58999999995,
+          "count": 1424,
+          "share_pct": 83.74452961855596
+        },
+        {
+          "bucket": "elementwise",
+          "total_us": 13551.745999999921,
+          "count": 12519,
+          "share_pct": 10.995282730836895
+        },
+        {
+          "bucket": "attention",
+          "total_us": 3951.289999999996,
+          "count": 352,
+          "share_pct": 3.205900605097581
+        },
+        {
+          "bucket": "reduction",
+          "total_us": 1321.5619999999997,
+          "count": 736,
+          "share_pct": 1.0722565074884334
+        },
+        {
+          "bucket": "other",
+          "total_us": 1194.4220000000005,
+          "count": 719,
+          "share_pct": 0.9691007778578308
+        },
+        {
+          "bucket": "memcpy/memset",
+          "total_us": 15.936000000000007,
+          "count": 46,
+          "share_pct": 0.012929760165119526
+        }
+      ],
+      "top_kernels": [
+        {
+          "name": "internal::gemvx::kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1336,
+          "total_us": 96345.09199999999,
+          "share_pct": 78.17011374537996
+        },
+        {
+          "name": "cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>",
+          "kind": "kernel",
+          "count": 88,
+          "total_us": 6870.497999999997,
+          "share_pct": 5.574415873176035
+        },
+        {
+          "name": "fmha_cutlassF_bf16_aligned_64x64_rf_sm80",
+          "kind": "kernel",
+          "count": 352,
+          "total_us": 3951.289999999996,
+          "share_pct": 3.205900605097581
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1474,
+          "total_us": 2189.7749999999864,
+          "share_pct": 1.776685841213254
+        },
+        {
+          "name": "at::native::unrolled_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1462.478999999997,
+          "share_pct": 1.1865902809063624
+        },
+        {
+          "name": "at::native::reduce_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1219.736999999999,
+          "share_pct": 0.9896402406201288
+        },
+        {
+          "name": "at::native::(anonymous)::CatArrayBatchedCopy<\u2026>",
+          "kind": "kernel",
+          "count": 704,
+          "total_us": 1183.9260000000006,
+          "share_pct": 0.9605847912430534
+        },
+        {
+          "name": "at::native::vectorized_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1364,
+          "total_us": 1165.0249999999937,
+          "share_pct": 0.9452493622219055
+        }
+      ],
+      "step": "s4_cuda_graph",
+      "kernels_per_new_token": 984.375
+    },
+    {
+      "file": "s5_fused_rmsnorm_b1_p128.json.gz",
+      "counts": {
+        "totalEvents": 25878,
+        "completeEvents": 14385,
+        "gpuEvents": 10756,
+        "cpuOps": 2897,
+        "skipped": 11493
+      },
+      "gpu_kernels": 10710,
+      "gpu_span_us": 126825.53491210938,
+      "idle": [
+        {
+          "device": 0,
+          "window_us": 126825.53493359375,
+          "busy_us": 117678.37399999988,
+          "idle_us": 9147.16093359387,
+          "idle_pct": 7.212396887096398,
+          "gap_count": 10755,
+          "listed_gaps_ge_5us": 200
+        }
+      ],
+      "buckets_heuristic": [
+        {
+          "bucket": "gemm",
+          "total_us": 103226.49899999997,
+          "count": 1424,
+          "share_pct": 87.71917514767865
+        },
+        {
+          "bucket": "elementwise",
+          "total_us": 8107.89599999964,
+          "count": 7479,
+          "share_pct": 6.889877659254257
+        },
+        {
+          "bucket": "attention",
+          "total_us": 3992.6229999999987,
+          "count": 352,
+          "share_pct": 3.3928264508481507
+        },
+        {
+          "bucket": "other",
+          "total_us": 1217.4659999999951,
+          "count": 719,
+          "share_pct": 1.0345707190005868
+        },
+        {
+          "bucket": "normalization",
+          "total_us": 1009.8870000000054,
+          "count": 720,
+          "share_pct": 0.8581755216978176
+        },
+        {
+          "bucket": "reduction",
+          "total_us": 102.56,
+          "count": 16,
+          "share_pct": 0.08715280175438214
+        },
+        {
+          "bucket": "memcpy/memset",
+          "total_us": 21.443000000000012,
+          "count": 46,
+          "share_pct": 0.018221699766178014
+        }
+      ],
+      "top_kernels": [
+        {
+          "name": "internal::gemvx::kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1336,
+          "total_us": 96325.36499999998,
+          "share_pct": 81.85477222858324
+        },
+        {
+          "name": "cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>",
+          "kind": "kernel",
+          "count": 88,
+          "total_us": 6901.133999999999,
+          "share_pct": 5.8644029190954186
+        },
+        {
+          "name": "fmha_cutlassF_bf16_aligned_64x64_rf_sm80",
+          "kind": "kernel",
+          "count": 352,
+          "total_us": 3992.6229999999987,
+          "share_pct": 3.3928264508481507
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1430,
+          "total_us": 2063.298000000008,
+          "share_pct": 1.7533365986175298
+        },
+        {
+          "name": "at::native::(anonymous)::CatArrayBatchedCopy<\u2026>",
+          "kind": "kernel",
+          "count": 704,
+          "total_us": 1206.7449999999951,
+          "share_pct": 1.0254602940044018
+        },
+        {
+          "name": "at::native::vectorized_elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 1364,
+          "total_us": 1160.824999999998,
+          "share_pct": 0.9864386807384016
+        },
+        {
+          "name": "(anonymous)::rmsnorm_kernel<__nv_bfloat16, \u2026>",
+          "kind": "kernel",
+          "count": 720,
+          "total_us": 1009.8870000000054,
+          "share_pct": 0.8581755216978176
+        },
+        {
+          "name": "at::native::elementwise_kernel<\u2026>",
+          "kind": "kernel",
+          "count": 704,
+          "total_us": 899.1119999999969,
+          "share_pct": 0.7640418281102356
+        }
+      ],
+      "step": "s5_fused_rmsnorm",
+      "kernels_per_new_token": 669.375
+    }
+  ]
+}
