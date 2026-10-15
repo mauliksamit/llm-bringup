@@ -1,0 +1,8 @@
+{
+  "source": "Project Gutenberg eBook #1342, Pride and Prejudice (Jane Austen), public domain in the USA",
+  "url": "https://www.gutenberg.org/cache/epub/1342/pg1342.txt",
+  "selection": "text after the first 'Chapter I.]' marker, first 40000 characters, Gutenberg header/footer removed",
+  "chars": 40000,
+  "sha256": "136d5091add9b34a7cd8d6913148d19af36d42b3549726520c02dc8ecf8f1a90",
+  "command": "python scripts/fetch_eval_text.py"
+}
