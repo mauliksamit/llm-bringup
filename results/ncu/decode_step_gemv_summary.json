@@ -1,0 +1,63 @@
+{
+  "source": "scripts/ncu_decode_step.py under ncu 2025.3.1, --clock-control none, one decode step (s2 config, b1, position 131)",
+  "metrics": [
+    "gpu__time_duration.sum",
+    "dram__bytes_op_read.sum",
+    "dram__throughput.avg.pct_of_peak_sustained_elapsed"
+  ],
+  "launches_in_step": 89,
+  "projections": {
+    "qkv": {
+      "launches": 22,
+      "time_ns": 757728.0,
+      "dram_read_bytes": 236759808.0,
+      "weight_bytes": 230686720,
+      "dram_throughput_pct_time_weighted": 89.16470121204442,
+      "dram_read_over_weight_bytes": 1.0263261274857955,
+      "effective_gbps_weight_bytes": 304.44528907470755
+    },
+    "o": {
+      "launches": 22,
+      "time_ns": 611232.0,
+      "dram_read_bytes": 186622720.0,
+      "weight_bytes": 184549376,
+      "dram_throughput_pct_time_weighted": 86.97752840165435,
+      "dram_read_over_weight_bytes": 1.011234630237926,
+      "effective_gbps_weight_bytes": 301.9301607245694
+    },
+    "gate_up": {
+      "launches": 22,
+      "time_ns": 3038208.0,
+      "dram_read_bytes": 1027775744.0,
+      "weight_bytes": 1015021568,
+      "dram_throughput_pct_time_weighted": 96.52461703741153,
+      "dram_read_over_weight_bytes": 1.0125654236344266,
+      "effective_gbps_weight_bytes": 334.0856083586114
+    },
+    "down": {
+      "launches": 22,
+      "time_ns": 1658816.0,
+      "dram_read_bytes": 515900416.0,
+      "weight_bytes": 507510784,
+      "dram_throughput_pct_time_weighted": 88.68546934681123,
+      "dram_read_over_weight_bytes": 1.0165309433109504,
+      "effective_gbps_weight_bytes": 305.947606003318
+    },
+    "lm_head": {
+      "launches": 1,
+      "time_ns": 380480.0,
+      "dram_read_bytes": 131198208.0,
+      "weight_bytes": 131072000,
+      "dram_throughput_pct_time_weighted": 98.08,
+      "dram_read_over_weight_bytes": 1.000962890625,
+      "effective_gbps_weight_bytes": 344.49116904962153
+    }
+  },
+  "total": {
+    "time_us": 6446.464,
+    "dram_read_bytes": 2098256896.0,
+    "weight_bytes": 2068840448,
+    "dram_throughput_pct_time_weighted": 92.82891472906698
+  },
+  "note": "weight_bytes is analytical (out x in x 2 bytes); durations are under the profiler with clocks unlocked"
+}
