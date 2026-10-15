@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Save a torch.profiler Chrome trace of one generation for a ladder step.
 
-Config: batch 1, prompt 128, NEW_TOKENS greedy tokens (decode-dominated, so
+Config: batch 1, prompt 128, NEW_TOKENS (16) greedy tokens (decode-dominated, so
 launch gaps and per-step kernels are visible), after 3 untraced warmup
 generations. Output: data/traces/<step>_b1_p128.json.gz plus a .meta.json
 (GPU, driver, torch, command, commit). Local paths and the host name are
@@ -24,7 +24,7 @@ from llm_bringup.common import MODEL_DIR, ROOT, STEPS, environment, eval_ids, no
 from llm_bringup.generate import GraphDecoder, generate  # noqa: E402
 from llm_bringup.model import Llama  # noqa: E402
 
-NEW_TOKENS = 64
+NEW_TOKENS = 16  # 16 decode-dominated steps keep each gzipped trace small enough to commit
 
 
 def redact(text: str) -> str:
