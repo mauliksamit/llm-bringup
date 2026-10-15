@@ -220,6 +220,82 @@
         "ppl_tokens": 1024
       },
       "drift_flagged_cells_run1_vs_run2": 1
+    },
+    {
+      "step": "s3_static_kv",
+      "runs": [
+        "s3_static_kv_run1.json",
+        "s3_static_kv_run2.json",
+        "s3_static_kv_run3.json"
+      ],
+      "cells": [
+        {
+          "batch": 1,
+          "prompt_len": 128,
+          "ttft_ms": 15.84395170211792,
+          "decode_ms": 939.9921264648438,
+          "ms_per_token": 14.920509943886408,
+          "decode_tok_per_s": 67.0218379774442,
+          "peak_mem_gib": 2.095815658569336,
+          "runs": 3,
+          "ttft_speedup_vs_baseline": 2.4765245315017,
+          "decode_speedup_vs_baseline": 1.2756926882711719,
+          "ttft_speedup_vs_prev": 0.8399520573145325,
+          "decode_speedup_vs_prev": 0.7972234420337448
+        },
+        {
+          "batch": 1,
+          "prompt_len": 1024,
+          "ttft_ms": 80.36916732788086,
+          "decode_ms": 904.3457641601562,
+          "ms_per_token": 14.354694669208829,
+          "decode_tok_per_s": 69.6636203725757,
+          "peak_mem_gib": 2.170102119445801,
+          "runs": 3,
+          "ttft_speedup_vs_baseline": 3.9760158095375067,
+          "decode_speedup_vs_baseline": 1.4116409135818184,
+          "ttft_speedup_vs_prev": 0.9104430614817194,
+          "decode_speedup_vs_prev": 0.8641522890129928
+        },
+        {
+          "batch": 4,
+          "prompt_len": 128,
+          "ttft_ms": 37.1898078918457,
+          "decode_ms": 905.8279418945312,
+          "ms_per_token": 14.378221299913195,
+          "decode_tok_per_s": 278.19852793781587,
+          "peak_mem_gib": 2.132744312286377,
+          "runs": 3,
+          "ttft_speedup_vs_baseline": 3.3553612467221283,
+          "decode_speedup_vs_baseline": 1.482762985320817,
+          "ttft_speedup_vs_prev": 0.9384898172495162,
+          "decode_speedup_vs_prev": 0.8426087445762894
+        },
+        {
+          "batch": 4,
+          "prompt_len": 1024,
+          "ttft_ms": 332.7239227294922,
+          "decode_ms": 1014.7963562011719,
+          "ms_per_token": 16.107878669859872,
+          "decode_tok_per_s": 248.32568471505613,
+          "peak_mem_gib": 2.4298934936523438,
+          "runs": 3,
+          "ttft_speedup_vs_baseline": 4.419328702827901,
+          "decode_speedup_vs_baseline": 1.844037474445421,
+          "ttft_speedup_vs_prev": 0.9574868513044593,
+          "decode_speedup_vs_prev": 0.9451993689442592
+        }
+      ],
+      "numerics": {
+        "max_abs_logit_diff": 1.7224388122558594,
+        "mean_abs_logit_diff": 0.030725013583898543,
+        "teacher_forced_token_match_rate": 0.9840000152587891,
+        "free_run_match_rate": 0.6875,
+        "ppl": 6.741565542848799,
+        "ppl_reference": 6.747465359746397,
+        "ppl_tokens": 1024
+      },
+      "drift_flagged_cells_run1_vs_run2": 1
     }
   ]
 }
