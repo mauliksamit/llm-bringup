@@ -36,7 +36,7 @@
 - Process miss: hand-typed numbers in three commit messages were wrong in the
   third decimal or a range bound; fixed before pushing, and from then on every
   number is printed by a script. The claims audit is strict (no free ratio
-  search) so it cannot pass by coincidence.
+  search), so a made-up number is much less likely to pass by coincidence.
 
 ## 2026-10-15 — Cold-clone check
 - Fresh `git clone` of `ddda317` into an empty folder (no remote exists yet,
