@@ -1,0 +1,23 @@
+name: CI
+
+# CPU-only: GitHub-hosted runners have no GPU, so GPU tests skip and no
+# benchmark runs here. Checks: unit tests (bring-up equivalence vs a tiny
+# transformers Llama), claims audit, and that generated tables are fresh.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install transformers==5.19.0 safetensors==0.8.0 huggingface_hub==2.2.0 tokenizers==0.23.3 numpy==2.5.4 pytest==9.1.1
+      - run: python -m pytest -q
+      - run: python scripts/claims_audit.py
+      - run: python scripts/summarize.py --check

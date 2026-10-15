@@ -1,0 +1,221 @@
+{
+  "generated_by": "scripts/facts.py",
+  "model": {
+    "repo": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+    "license": "apache-2.0",
+    "parameters": 1100048384,
+    "source": "results/model_files.json + model.safetensors header"
+  },
+  "bringup_numerics_fp32": {
+    "max_abs_logit_diff": 0.0001678466796875,
+    "mean_abs_logit_diff": 4.014941445348085e-06,
+    "teacher_forced_token_match_rate": 1.0,
+    "free_run_match_rate": 1.0,
+    "ppl": 6.74749672988084,
+    "ppl_reference": 6.747465359746397,
+    "ppl_tokens": 1024,
+    "source": "results/numerics/s0_fp32_baseline.json"
+  },
+  "final_numerics_bf16": {
+    "max_abs_logit_diff": 1.7224388122558594,
+    "mean_abs_logit_diff": 0.03067717882990837,
+    "teacher_forced_token_match_rate": 0.9840000152587891,
+    "free_run_match_rate": 0.6875,
+    "ppl": 6.750734268248046,
+    "ppl_reference": 6.747465359746397,
+    "ppl_tokens": 1024,
+    "source": "results/numerics/s5_fused_rmsnorm.json"
+  },
+  "baseline_vs_final": {
+    "from": "s0_fp32_baseline",
+    "to": "s5_fused_rmsnorm",
+    "cells": [
+      {
+        "batch": 1,
+        "prompt_len": 128,
+        "ttft_ms_baseline": 39.237935066223145,
+        "ttft_ms_final": 12.78112006187439,
+        "ttft_speedup": 3.069991900261422,
+        "ms_per_token_baseline": 19.033985440693204,
+        "ms_per_token_final": 7.383603898305742,
+        "decode_speedup": 2.577871958307621,
+        "decode_tok_per_s_final": 135.43521751342354,
+        "peak_mem_gib_baseline": 4.177363395690918,
+        "peak_mem_gib_final": 2.1583166122436523
+      },
+      {
+        "batch": 1,
+        "prompt_len": 1024,
+        "ttft_ms_baseline": 319.54907989501953,
+        "ttft_ms_final": 72.96720695495605,
+        "ttft_speedup": 4.379351947680864,
+        "ms_per_token_baseline": 20.26367429703001,
+        "ms_per_token_final": 9.960000658792163,
+        "decode_speedup": 2.034505316939142,
+        "decode_tok_per_s_final": 100.40159978476034,
+        "peak_mem_gib_baseline": 4.715203285217285,
+        "peak_mem_gib_final": 2.264829635620117
+      },
+      {
+        "batch": 4,
+        "prompt_len": 128,
+        "ttft_ms_baseline": 124.78524017333984,
+        "ttft_ms_final": 36.16800785064697,
+        "ttft_speedup": 3.4501551948515097,
+        "ms_per_token_baseline": 21.31949433826265,
+        "ms_per_token_final": 7.710735018291171,
+        "decode_speedup": 2.764910775391606,
+        "decode_tok_per_s_final": 518.7572897410328,
+        "peak_mem_gib_baseline": 4.312867164611816,
+        "peak_mem_gib_final": 2.256772041320801
+      },
+      {
+        "batch": 4,
+        "prompt_len": 1024,
+        "ttft_ms_baseline": 1470.4163818359375,
+        "ttft_ms_final": 299.8020324707031,
+        "ttft_speedup": 4.904624460741865,
+        "ms_per_token_baseline": 29.703531901041668,
+        "ms_per_token_final": 10.55828155033172,
+        "decode_speedup": 2.813292272937014,
+        "decode_tok_per_s_final": 378.84952972051855,
+        "peak_mem_gib_baseline": 6.467182159423828,
+        "peak_mem_gib_final": 2.58614444732666
+      }
+    ],
+    "source": "results/summary.json"
+  },
+  "launch_gaps": {
+    "idle_pct_eager_bf16_s3": 65.0337413711433,
+    "idle_pct_graph_s4": 12.536306899296912,
+    "idle_pct_final_s5": 7.212396887096398,
+    "busy_ms_fp32_s0": 232.33505500000422,
+    "busy_ms_bf16_s1": 117.74014800000374,
+    "idle_pct_fp32_s0": 41.97780273318581,
+    "idle_pct_bf16_s1": 73.329737381585,
+    "kernels_per_token_s4": 984.375,
+    "kernels_per_token_s5": 669.375,
+    "kernels_per_token_reduction_pct_s4_to_s5": 31.999999999999996,
+    "source": "results/trace_breakdown.json (perflens)"
+  },
+  "s4_ttft_increase_pct_vs_s3": {
+    "min": 5.318509644955105,
+    "max": 13.026952023121563,
+    "per_cell": [
+      5.318509644955105,
+      6.754268631542648,
+      9.15274895402387,
+      13.026952023121563
+    ],
+    "source": "results/summary.json (s4 ttft / s3 ttft - 1)"
+  },
+  "decode_gemv_counters": {
+    "dram_read_over_weight_bytes_min": 1.000962890625,
+    "dram_read_over_weight_bytes_max": 1.0263261274857955,
+    "dram_throughput_pct_min": 86.97752840165435,
+    "dram_throughput_pct_max": 98.08,
+    "dram_throughput_pct_time_weighted": 92.82891472906698,
+    "weight_gb": 2.068840448,
+    "gemv_time_us": 6446.464,
+    "source": "results/ncu/decode_step_gemv_summary.json"
+  },
+  "fused_rmsnorm_kernel": {
+    "graph_mode": [
+      {
+        "rows": 1,
+        "hidden": 2048,
+        "runs": 3,
+        "torch_composed_graph_us": 8.114400133490562,
+        "torch_composed_graph_us_range": [
+          8.044800162315369,
+          8.235200121998787
+        ],
+        "fused_graph_us": 1.5920000150799751,
+        "fused_graph_us_range": [
+          1.5639999881386757,
+          1.6048000194132328
+        ],
+        "graph_speedup": 5.0969849601935655,
+        "graph_speedup_range_over_runs": [
+          5.0969849601935655,
+          5.143734158137383
+        ]
+      },
+      {
+        "rows": 4,
+        "hidden": 2048,
+        "runs": 3,
+        "torch_composed_graph_us": 9.34000015258789,
+        "torch_composed_graph_us_range": [
+          9.285600110888481,
+          9.459999948740005
+        ],
+        "fused_graph_us": 1.63199994713068,
+        "fused_graph_us_range": [
+          1.573600061237812,
+          1.7160000279545784
+        ],
+        "graph_speedup": 5.723039494584005,
+        "graph_speedup_range_over_runs": [
+          5.512820393141863,
+          5.900864101126381
+        ]
+      },
+      {
+        "rows": 128,
+        "hidden": 2048,
+        "runs": 3,
+        "torch_composed_graph_us": 16.10880047082901,
+        "torch_composed_graph_us_range": [
+          16.08159989118576,
+          16.229600459337234
+        ],
+        "fused_graph_us": 2.094399929046631,
+        "fused_graph_us_range": [
+          1.9783999770879745,
+          2.115200087428093
+        ],
+        "graph_speedup": 7.691367941442646,
+        "graph_speedup_range_over_runs": [
+          7.6028740669823085,
+          8.142337574497803
+        ]
+      },
+      {
+        "rows": 4096,
+        "hidden": 2048,
+        "runs": 3,
+        "torch_composed_graph_us": 808.0016136169434,
+        "torch_composed_graph_us_range": [
+          781.1872005462646,
+          808.7784290313721
+        ],
+        "fused_graph_us": 44.781599938869476,
+        "fused_graph_us_range": [
+          43.247999250888824,
+          50.37359893321991
+        ],
+        "graph_speedup": 18.043160912516104,
+        "graph_speedup_range_over_runs": [
+          15.50786954058775,
+          18.700944391427544
+        ]
+      }
+    ],
+    "sanitizer_clean": {
+      "memcheck": true,
+      "racecheck": true,
+      "synccheck": true,
+      "initcheck": true
+    },
+    "source": "results/summary.json, results/kernels/, results/sanitizer/"
+  },
+  "tests": {
+    "passed": 79,
+    "failed": 0,
+    "skipped": 0,
+    "summary_line": "79 passed in 7.87s",
+    "command": "python -m pytest -q"
+  }
+}
