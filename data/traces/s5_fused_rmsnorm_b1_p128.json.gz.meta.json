@@ -1,0 +1,31 @@
+{
+  "file": "data/traces/s5_fused_rmsnorm_b1_p128.json.gz",
+  "step": "s5_fused_rmsnorm",
+  "options": {
+    "dtype": "torch.bfloat16",
+    "attn": "sdpa",
+    "kv_cache": "static",
+    "rmsnorm": "fused"
+  },
+  "cuda_graph": true,
+  "workload": {
+    "batch": 1,
+    "prompt_len": 128,
+    "new_tokens": 16,
+    "untraced_warmup": 3
+  },
+  "command": "python scripts/trace_step.py --step s5_fused_rmsnorm",
+  "environment": {
+    "git_commit": "2fc3ec563f9b39b78ab31c47477b373ee84d6767",
+    "tracked_files_dirty": false,
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU, 617.14, 12.0, [N/A]",
+    "torch": "2.14.1+cu130",
+    "torch_cuda": "13.0",
+    "cudnn": 92400,
+    "python": "3.14.7",
+    "os": "Windows-11-10.0.26200-SP0",
+    "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "model_revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+    "tf32_matmul": false
+  }
+}

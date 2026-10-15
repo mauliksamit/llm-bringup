@@ -1,0 +1,65 @@
+{
+  "step": "s5_fused_rmsnorm",
+  "options": {
+    "dtype": "torch.bfloat16",
+    "attn": "sdpa",
+    "kv_cache": "static",
+    "rmsnorm": "fused"
+  },
+  "cuda_graph": true,
+  "reference": "results/reference/reference.json (transformers, float32, CPU)",
+  "sequences": [
+    {
+      "sequence": 0,
+      "positions": 96,
+      "max_abs_logit_diff": 0.919342041015625,
+      "mean_abs_logit_diff": 0.03816897049546242,
+      "teacher_forced_token_match_rate": 0.9895833730697632,
+      "free_run_exact_prefix": 12,
+      "free_run_match_rate": 0.375,
+      "free_run_text": "surrounding families, that he is considered as security for the\nfuture happiness of the widest possible circle of acquaintances.\n\nIn the present instance,"
+    },
+    {
+      "sequence": 1,
+      "positions": 96,
+      "max_abs_logit_diff": 0.919342041015625,
+      "mean_abs_logit_diff": 0.02265501394867897,
+      "teacher_forced_token_match_rate": 0.96875,
+      "free_run_exact_prefix": 12,
+      "free_run_match_rate": 0.6875,
+      "free_run_text": "the manner of address, the\nmanner of addressing a lady, as a matter of indifference? I am\nconvinced that it is not"
+    },
+    {
+      "sequence": 2,
+      "positions": 58,
+      "max_abs_logit_diff": 1.7224388122558594,
+      "mean_abs_logit_diff": 0.03155503794550896,
+      "teacher_forced_token_match_rate": 1.0,
+      "free_run_exact_prefix": 32,
+      "free_run_match_rate": 1.0,
+      "free_run_text": "The sky is blue because the sunlight reflects off the Earth's atmosphere, which contains a variety of colors, including red, orange, yellow, green"
+    }
+  ],
+  "summary": {
+    "max_abs_logit_diff": 1.7224388122558594,
+    "mean_abs_logit_diff": 0.03067717882990837,
+    "teacher_forced_token_match_rate": 0.9840000152587891,
+    "free_run_match_rate": 0.6875,
+    "ppl": 6.750734268248046,
+    "ppl_reference": 6.747465359746397,
+    "ppl_tokens": 1024
+  },
+  "environment": {
+    "git_commit": "2fc3ec563f9b39b78ab31c47477b373ee84d6767",
+    "tracked_files_dirty": false,
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU, 617.14, 12.0, [N/A]",
+    "torch": "2.14.1+cu130",
+    "torch_cuda": "13.0",
+    "cudnn": 92400,
+    "python": "3.14.7",
+    "os": "Windows-11-10.0.26200-SP0",
+    "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "model_revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+    "tf32_matmul": false
+  }
+}
